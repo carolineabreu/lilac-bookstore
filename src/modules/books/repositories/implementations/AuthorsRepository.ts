@@ -1,5 +1,5 @@
-import { Author } from "../model/Author";
-import { IAuthorsRepository, ICreateAuthorDTO } from "./IAuthorsRepository";
+import { Author } from "../../model/Author";
+import { IAuthorsRepository, ICreateAuthorDTO } from "../IAuthorsRepository";
 
 class AuthorsRepository implements IAuthorsRepository {
   private authors: Author[];

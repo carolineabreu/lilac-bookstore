@@ -1,11 +1,11 @@
-import { IAuthorsRepository } from "../repositories/IAuthorsRepository";
+import { IAuthorsRepository } from "../../repositories/IAuthorsRepository";
 
 interface IRequest {
   name: string;
   contact: string;
 }
 
-class CreateAuthorService {
+class CreateAuthorUseCase {
   constructor(private authorsRepository: IAuthorsRepository) {}
   execute({ name, contact }: IRequest): void {
     const authorAlreadyExists = this.authorsRepository.findByName(name);
@@ -21,4 +21,4 @@ class CreateAuthorService {
   }
 }
 
-export { CreateAuthorService };
+export { CreateAuthorUseCase };
