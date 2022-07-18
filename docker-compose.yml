@@ -1,10 +1,33 @@
-version: "3.7"
+version: "3.9"
 
 services:
+  database_bookstore:
+    image: postgres
+    container_name: database_bookstore
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=bookstore
+      - POSTGRES_DB=lilac
+    volumes:
+      - pgdata:/data/postgres
+
   app:
     build: .
-    container_name: lilac-bookstore
+    container_name: lilac
+    restart: always
     ports:
       - 3333:3333
+      - 9229:9229 #debug
     volumes:
       - .:/usr/app
+    links:
+      - database_bookstore
+    depends_on:
+      - database_bookstore
+
+volumes:
+  pgdata:
+    driver: local
