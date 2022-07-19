@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import { createCategoryController } from "../modules/books/useCases/createCategory";
+import createCategoryController from "../modules/books/useCases/createCategory";
 import { listCategoriesController } from "../modules/books/useCases/listCategories";
 
 const categoriesRoutes = Router();
 
 categoriesRoutes.post("/", (request, response) => {
-  return createCategoryController.handle(request, response);
+  return createCategoryController().handle(request, response);
 });
 
 categoriesRoutes.get("/", (request, response) => {
