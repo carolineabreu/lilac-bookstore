@@ -1,4 +1,4 @@
-import { Author } from "../model/Author";
+import { Author } from "../entities/Author";
 
 interface ICreateAuthorDTO {
   name: string;

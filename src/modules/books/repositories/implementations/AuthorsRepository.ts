@@ -1,4 +1,4 @@
-import { Author } from "../../model/Author";
+import { Author } from "../../entities/Author";
 import { IAuthorsRepository, ICreateAuthorDTO } from "../IAuthorsRepository";
 
 class AuthorsRepository implements IAuthorsRepository {
