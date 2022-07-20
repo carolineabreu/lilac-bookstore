@@ -1,27 +1,28 @@
+import { getRepository, Repository } from "typeorm";
+
 import { Author } from "../../entities/Author";
 import { IAuthorsRepository, ICreateAuthorDTO } from "../IAuthorsRepository";
 
 class AuthorsRepository implements IAuthorsRepository {
-  private authors: Author[];
+  private repository: Repository<Author>;
 
   constructor() {
-    this.authors = [];
+    this.repository = getRepository(Author);
   }
 
-  create({ name, contact }: ICreateAuthorDTO): void {
-    const author = new Author();
-
-    Object.assign(author, {
+  async create({ name, contact }: ICreateAuthorDTO): Promise<void> {
+    const author = this.repository.create({
       name,
       contact,
-      created_at: new Date(),
     });
 
-    this.authors.push(author);
+    await this.repository.save(author);
   }
 
-  findByName(name: string): Author {
-    const author = this.authors.find((author) => author.name === name);
+  async findByName(name: string): Promise<Author> {
+    const author = await this.repository.findOne({
+      name,
+    });
     return author;
   }
 }

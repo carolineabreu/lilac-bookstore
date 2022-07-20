@@ -12,14 +12,15 @@ class CreateAuthorUseCase {
   constructor(
     @inject("AuthorsRepository") private authorsRepository: IAuthorsRepository
   ) {}
-  execute({ name, contact }: IRequest): void {
-    const authorAlreadyExists = this.authorsRepository.findByName(name);
+
+  async execute({ name, contact }: IRequest): Promise<void> {
+    const authorAlreadyExists = await this.authorsRepository.findByName(name);
 
     if (authorAlreadyExists) {
       throw new Error("Author Already Exists!");
     }
 
-    this.authorsRepository.create({
+    await this.authorsRepository.create({
       name,
       contact,
     });
