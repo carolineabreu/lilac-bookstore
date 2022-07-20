@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import { IAuthorsRepository } from "../../repositories/IAuthorsRepository";
 
 interface IRequest {
@@ -5,8 +7,11 @@ interface IRequest {
   contact: string;
 }
 
+@injectable()
 class CreateAuthorUseCase {
-  constructor(private authorsRepository: IAuthorsRepository) {}
+  constructor(
+    @inject("AuthorsRepository") private authorsRepository: IAuthorsRepository
+  ) {}
   execute({ name, contact }: IRequest): void {
     const authorAlreadyExists = this.authorsRepository.findByName(name);
 

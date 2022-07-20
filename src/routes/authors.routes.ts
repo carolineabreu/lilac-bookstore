@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import { createAuthorController } from "../modules/books/useCases/createAuthor";
+import { CreateAuthorController } from "../modules/books/useCases/createAuthor/CreateAuthorController";
 
 const authorRoutes = Router();
 
-authorRoutes.post("/", (request, response) => {
-  return createAuthorController.handle(request, response);
-});
+const createAuthorController = new CreateAuthorController();
+
+authorRoutes.post("/", createAuthorController.handle);
 
 export { authorRoutes };
