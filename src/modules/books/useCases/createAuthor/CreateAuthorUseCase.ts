@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../errors/AppError";
 import { IAuthorsRepository } from "../../repositories/IAuthorsRepository";
 
 interface IRequest {
@@ -17,7 +18,7 @@ class CreateAuthorUseCase {
     const authorAlreadyExists = await this.authorsRepository.findByName(name);
 
     if (authorAlreadyExists) {
-      throw new Error("Author Already Exists!");
+      throw new AppError("Author Already Exists!");
     }
 
     await this.authorsRepository.create({

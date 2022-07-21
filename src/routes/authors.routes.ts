@@ -1,11 +1,13 @@
 import { Router } from "express";
 
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateAuthorController } from "../modules/books/useCases/createAuthor/CreateAuthorController";
 
-const authorRoutes = Router();
+const authorsRoutes = Router();
 
 const createAuthorController = new CreateAuthorController();
 
-authorRoutes.post("/", createAuthorController.handle);
+authorsRoutes.use(ensureAuthenticated);
+authorsRoutes.post("/", createAuthorController.handle);
 
-export { authorRoutes };
+export { authorsRoutes };
